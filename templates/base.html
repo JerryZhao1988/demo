@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Episode 3</title>
+		<link rel="stylesheet" type="text/css" href="/static/style.css">
+	</head>
+	
+	<body>
+		<form align="center" action="{{url_for('index')}}" method="post">
+		search:<input type="text" name="expression" />
+		<input type="submit" value="search" />
+	</form>
+	{% with notices = get_flashed_messages() %}
+		{% if notices %}
+			Notice:
+			{% for notice in notices %}
+				{{ notice }}
+			{% endfor %}
+		{% endif %}
+	{% endwith %}
+
+	<div class="flickr">
+		{% with messages = session["result"] %}
+			{% if messages %}
+				Results:
+				</br>
+				{% for message in messages %}
+					<img src="{{ message }}"/>
+				{% endfor %}			
+			{% endif %}
+		{% endwith %}
+
+	</div>
+
+	</body>
+</html>
