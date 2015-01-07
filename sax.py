@@ -1,10 +1,9 @@
 import urllib
 import urllib2
-import feed
+import settings
 from xml.sax import handler, make_parser 
 
-url = feed.feed
-
+url = settings.feed
 class  TestHandler(handler.ContentHandler):  
     img_src=[]                     
     def  __init__(self):                                                                

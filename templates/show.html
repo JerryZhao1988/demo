@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Episode 3</title>
+		<title>show liked</title>
 		<link rel="stylesheet" type="text/css" href="/static/style.css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
@@ -9,30 +9,26 @@
 	<body>
 		<script>
         $(function(){
-					$(".like_ajax").click(function(){
+					$(".delete_ajax").click(function(){
 						var pic_url = $(this).prev().html();
 						var current = $(this);
 						$.ajax({
-							url: 'add_entry',
+							url: 'delete_img',
 							type: 'POST',
 							data:{pic:pic_url},
 							dataType: 'html',
 							success:function(data){
-								current.css("background","url(static/liked.jpg)");
+								current.css("background","url(static/like.jpg)");
 								current.blur();
+								current.parent().hide();
 							}
 						});
 					});
 				});
 		</script>
-		<form align="center" action="{{url_for('index')}}" method="post">
-		search:<input type="text" name="expression" />
-		<input type="submit" value="search" />
-	</form>
-	<form action = "{{url_for('show_liked')}}" method="post" name="like">
-		<input type="submit" value="LikedImg">
-	</form>
-
+		<form method="get" action="/">
+    	<button type="submit">Back</button>
+		</form>
 
 	{% with notices = get_flashed_messages() %}
 		{% if notices %}
@@ -58,8 +54,8 @@
 						margin-bottom: 3px;
 					}
 					.hidden{display:none;}
-					.like_ajax{
-						background: url(static/like.jpg);
+					.delete_ajax{
+						background: url(static/liked.jpg);
 						/*background: black;*/
 						width: 21px;
 						height: 20px;
@@ -67,7 +63,8 @@
 						margin-left:10px; 
 					}
 				</style>
-	<div class="">
+
+		<div class="">
 		{% with messages = session["result"] %}
 			{% if messages %}
 				Results:
@@ -78,12 +75,14 @@
 					<img src="{{ message }}" alt="" />
 					<div class="hidden">{{ message }}</div>
 			
-					<button name="like" class="like_ajax">ll</button>
+					<button name="like" class="delete_ajax">ll</button>
 				</div>
 			
 				{% endfor %}
 			{% endif %}
 		{% endwith %}
+
+	</div>
 
 	</div>
 

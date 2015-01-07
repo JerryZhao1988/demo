@@ -5,14 +5,14 @@ import re
 
 
 class Index(flask.views.MethodView):
-	def get(self):	
-		session.clear()
+	def get(self):
+		session.clear()	
+		result = Test('')
+		session["result"] = result
 		return flask.render_template('base.html')
 
 	def post(self):
-		session.clear()
 		query = str(flask.request.form['expression'])
-
 		if self.filter(query):
 			return flask.render_template('base.html')
 		result = Test(query)

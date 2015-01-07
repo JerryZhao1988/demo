@@ -19,7 +19,7 @@ h2              { font-size: 1.2em; }
 
 .flickr img {
 	width: 200px;
-	height: auto;
+	height: 150px;
 	float: left;
 	margin: 10px 20px 10px 0px;
 }
