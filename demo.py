@@ -19,7 +19,7 @@ DA = DictDAO(app.config['DATABASE'])
 
 @app.before_request
 def before_request():
-	g.db = DA.connect_db()
+	DA.connect_db()
 
 
 @app.route('/add_entry',methods=['POST'])
