@@ -6,12 +6,12 @@ import os
 import sqlite3
 from sqlite3 import dbapi2 as sqlite3
 
-class DictDAO(BaseDAO):
+class DbDAO(BaseDAO):
 	def __init__(self,path):
 		super(self.__class__,self).__init__()
 		self.path = path
 
-	def connect_db(self):
+	def setup(self):
 		rv = sqlite3.connect(self.path)
 		rv.row_factory = sqlite3.Row
 		return rv
@@ -31,10 +31,10 @@ class DictDAO(BaseDAO):
 	    current application context.
 	    """
 	    if not hasattr(g, 'sqlite_db'):
-	        g.sqlite_db = self.connect_db()
+	        g.sqlite_db = self.setup()
 	    return g.sqlite_db
 
-	def close(self,error):
+	def teardown(self,error):
 		"""Closes the database again at the end of the request."""
 		if hasattr(g, 'sqlite_db'):
 			g.sqlite_db.close()

@@ -3,7 +3,7 @@ CONTENTS OF THIS FILE
 
  * Environment
  * Database requirment
- * Staring the app
+ * Starting the app
 
 
  Environment

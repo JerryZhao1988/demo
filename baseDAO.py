@@ -26,4 +26,11 @@ class BaseDAO(object):
 	def delete(self, key):
 		raise NotImplementedError()
 
+	def setup(self):
+		raise NotImplementedError()
+
+	def teardown(self):
+		raise NotImplementedError()
+
+
 

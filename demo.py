@@ -7,19 +7,19 @@ import os
 from flask import g
 from index import Index
 from flask import session
-from DictDAO import DictDAO
+from DbDAO import DbDAO
 
 app = flask.Flask(__name__)
 
 # export FLASKR_SETTINGS=/settings.py
 app.config.from_envvar('FLASKR_SETTINGS', silent=False)
 
-DA = DictDAO(app.config['DATABASE'])
+DA = DbDAO(app.config['DATABASE'])
 
 
 @app.before_request
 def before_request():
-	DA.connect_db()
+	DA.setup()
 
 
 @app.route('/add_entry',methods=['POST'])
@@ -45,7 +45,7 @@ def delete_img():
 
 @app.teardown_appcontext
 def close_db(error):
-	DA.close(error)
+	DA.teardown(error)
 
 app.add_url_rule('/', view_func=Index.as_view('index'), methods = ["GET" ,"POST"])
 app.run(host='0.0.0.0')
