@@ -7,14 +7,14 @@ import os
 from flask import g
 from index import Index
 from flask import session
-from database import Database
+from DictDAO import DictDAO
 
 app = flask.Flask(__name__)
 
 # export FLASKR_SETTINGS=/settings.py
 app.config.from_envvar('FLASKR_SETTINGS', silent=False)
 
-DA = Database(app.config['DATABASE'])
+DA = DictDAO(app.config['DATABASE'])
 
 
 @app.before_request
