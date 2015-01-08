@@ -1,3 +1,5 @@
+# before running this app, must do "export FLASKR_SETTINGS=~/path/settings.py" first
+
 import flask
 import settings
 import os
@@ -37,9 +39,9 @@ def delete_img():
 	if DA.delete(flask.request.form['pic']):
 		return "Image has deleted from liked Img"
 
-@app.cli.command('init_db')
-def initdb_command():
-	DA.initdb()
+# @app.cli.command('init_db')
+# def initdb_command():
+# 	DA.initdb()
 
 @app.teardown_appcontext
 def close_db(error):
