@@ -5,87 +5,82 @@
 		<link rel="stylesheet" type="text/css" href="/static/style.css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
-
 	<body>
 		<script>
         $(function(){
-					$(".like_ajax").click(function(){
-						var pic_url = $(this).prev().html();
-						var current = $(this);
-						$.ajax({
-							url: 'add_entry',
-							type: 'POST',
-							data:{pic:pic_url},
-							dataType: 'html',
-							success:function(data){
-								current.css("background","url(static/liked.jpg)");
-								current.blur();
-							}
-						});
-					});
+			$(".like_ajax").click(function(){
+				var pic_url = $(this).prev().html();
+				var current = $(this);
+				$.ajax({
+					url: 'add_entry',
+					type: 'POST',
+					data:{pic:pic_url},
+					dataType: 'html',
+					success:function(data){
+						current.css("background","url(static/liked.jpg)");
+						current.blur();
+					}
 				});
+			});
+		});
 		</script>
 		<form align="center" action="{{url_for('index')}}" method="post">
 		search:<input type="text" name="expression" />
 		<input type="submit" value="search" />
-	</form>
-	<form action = "{{url_for('show_liked')}}" method="post" name="like">
-		<input type="submit" value="LikedImg">
-	</form>
+		</form>
+		<form action = "{{url_for('show_liked')}}" method="post" name="like">
+			<input type="submit" value="LikedImg">
+		</form>		
+			{% with notices = get_flashed_messages() %}
+				{% if notices %}
+					Notice:
+					{% for notice in notices %}
+						{{ notice }}
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+		<style media="screen">
+			.image_item{
+				width: 200px;
+				height:175px;
+				float: left;
+				margin-right:15px;
+				margin-bottom: 15px; 
+				
+			}
+			.image_item img{
+				width: 200px;
+				height: 150px;
+				float: left;
+				margin-bottom: 3px;
+			}
+			.hidden{display:none;}
+			.like_ajax{
+				background: url(static/like.jpg);
+				/*background: black;*/
+				width: 21px;
+				height: 20px;
+				float:left;
+				margin-left:10px; 
+			}
+		</style>
+		<div class="">
+			{% with messages = session["result"] %}
+				{% if messages %}
+					Results:
+					</br>
+					{% for message in messages %}
 
+					<div class="image_item">
+						<img src="{{ message }}" alt="" />
+						<div class="hidden">{{ message }}</div>			
+						<button name="like" class="like_ajax">ll</button>
+					</div>
+				
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
 
-	{% with notices = get_flashed_messages() %}
-		{% if notices %}
-			Notice:
-			{% for notice in notices %}
-				{{ notice }}
-			{% endfor %}
-		{% endif %}
-	{% endwith %}
-				<style media="screen">
-					.image_item{
-						width: 200px;
-						height:175px;
-						float: left;
-						margin-right:15px;
-						margin-bottom: 15px; 
-						
-					}
-					.image_item img{
-						width: 200px;
-						height: 150px;
-						float: left;
-						margin-bottom: 3px;
-					}
-					.hidden{display:none;}
-					.like_ajax{
-						background: url(static/like.jpg);
-						/*background: black;*/
-						width: 21px;
-						height: 20px;
-						float:left;
-						margin-left:10px; 
-					}
-				</style>
-	<div class="">
-		{% with messages = session["result"] %}
-			{% if messages %}
-				Results:
-				</br>
-				{% for message in messages %}
-
-				<div class="image_item">
-					<img src="{{ message }}" alt="" />
-					<div class="hidden">{{ message }}</div>
-			
-					<button name="like" class="like_ajax">ll</button>
-				</div>
-			
-				{% endfor %}
-			{% endif %}
-		{% endwith %}
-
-	</div>
-
+		</div>
 	</body>
 </html>

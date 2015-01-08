@@ -5,86 +5,77 @@
 		<link rel="stylesheet" type="text/css" href="/static/style.css">
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	</head>
-
 	<body>
 		<script>
         $(function(){
-					$(".delete_ajax").click(function(){
-						var pic_url = $(this).prev().html();
-						var current = $(this);
-						$.ajax({
-							url: 'delete_img',
-							type: 'POST',
-							data:{pic:pic_url},
-							dataType: 'html',
-							success:function(data){
-								current.css("background","url(static/like.jpg)");
-								current.blur();
-								current.parent().hide();
-							}
-						});
-					});
+			$(".delete_ajax").click(function(){
+				var pic_url = $(this).prev().html();
+				var current = $(this);
+				$.ajax({
+					url: 'delete_img',
+					type: 'POST',
+					data:{pic:pic_url},
+					dataType: 'html',
+					success:function(data){
+						current.css("background","url(static/like.jpg)");
+						current.blur();
+						current.parent().hide();
+					}
 				});
+			});
+		});
 		</script>
 		<form method="get" action="/">
     	<button type="submit">Back</button>
 		</form>
 
-	{% with notices = get_flashed_messages() %}
-		{% if notices %}
-			Notice:
-			{% for notice in notices %}
-				{{ notice }}
-			{% endfor %}
-		{% endif %}
-	{% endwith %}
-				<style media="screen">
-					.image_item{
-						width: 200px;
-						height:175px;
-						float: left;
-						margin-right:15px;
-						margin-bottom: 15px; 
-						
-					}
-					.image_item img{
-						width: 200px;
-						height: 150px;
-						float: left;
-						margin-bottom: 3px;
-					}
-					.hidden{display:none;}
-					.delete_ajax{
-						background: url(static/liked.jpg);
-						/*background: black;*/
-						width: 21px;
-						height: 20px;
-						float:left;
-						margin-left:10px; 
-					}
-				</style>
-
+		{% with notices = get_flashed_messages() %}
+			{% if notices %}
+				Notice:
+				{% for notice in notices %}
+					{{ notice }}
+				{% endfor %}
+			{% endif %}
+		{% endwith %}
+		<style media="screen">
+			.image_item{
+				width: 200px;
+				height:175px;
+				float: left;
+				margin-right:15px;
+				margin-bottom: 15px; 
+				
+			}
+			.image_item img{
+				width: 200px;
+				height: 150px;
+				float: left;
+				margin-bottom: 3px;
+			}
+			.hidden{display:none;}
+			.delete_ajax{
+				background: url(static/liked.jpg);
+				/*background: black;*/
+				width: 21px;
+				height: 20px;
+				float:left;
+				margin-left:10px; 
+			}
+		</style>
 		<div class="">
 		{% with messages = session["result"] %}
 			{% if messages %}
 				Results:
 				</br>
 				{% for message in messages %}
-
 				<div class="image_item">
 					<img src="{{ message }}" alt="" />
-					<div class="hidden">{{ message }}</div>
-			
+					<div class="hidden">{{ message }}</div>			
 					<button name="like" class="delete_ajax">ll</button>
-				</div>
-			
+				</div>			
 				{% endfor %}
 			{% endif %}
 		{% endwith %}
-
-	</div>
-
-	</div>
-
+		</div>
 	</body>
 </html>

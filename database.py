@@ -10,7 +10,6 @@ class Database(object):
 	def __init__(self,path):
 		self.path = path
 
-
 	def connect_db(self):
 		rv = sqlite3.connect(self.path)
 		rv.row_factory = sqlite3.Row
@@ -21,7 +20,6 @@ class Database(object):
 		with app.open_resource('schema.sql', mode= 'r') as f:
 			db.cursor().executescript(f.read())
 		db.commit()
-
 
 	def add(self,url):
 		print url
